@@ -7,5 +7,5 @@ import { pressType } from './pressType'
 import { categoryType } from './categoryType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [aboutType, authorType, blockContentType, blogPostType, categoryType,pressType],
+  types: [aboutType, authorType, blockContentType, blogPostType, categoryType, pressType],
 }

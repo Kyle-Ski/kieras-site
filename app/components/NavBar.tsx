@@ -30,6 +30,9 @@ export default function NavBar() {
           <Link href="/press">
             Press
           </Link>
+          <Link href="/contact">
+            Contact
+          </Link>
         </nav>
       </div>
     </header>
