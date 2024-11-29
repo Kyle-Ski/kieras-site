@@ -1,8 +1,15 @@
 import { client } from "@/sanity/lib/client";
 import { PortableText } from "next-sanity";
-import "../aboutPage.css"
+import "../aboutPage.css";
 
-async function fetchAboutContent() {
+interface AboutContent {
+  title: string;
+  body: any[]; // Adjust type based on your Sanity schema
+  imageUrl?: string;
+}
+
+// Fetch data from Sanity
+async function fetchAboutContent(): Promise<AboutContent> {
   const query = `*[_type == "about"][0] {
     title,
     body,
@@ -28,7 +35,9 @@ export default async function AboutPage() {
       )}
       <div className="about-content">
         <h1 className="about-title">{aboutContent.title}</h1>
-        <PortableText value={aboutContent.body} className="about-body" />
+        <div className="about-body">
+          <PortableText value={aboutContent.body} />
+        </div>
       </div>
     </section>
   );
