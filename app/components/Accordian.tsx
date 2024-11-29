@@ -28,10 +28,10 @@ const expandableItems: ExpandableItem[] = [
     link: 'https://www.google.com/books/edition/Fetching/4ZDNZDme3JAC?hl=en&gbpv=0',
   },
   {
-    title: 'Book 4',
+    title: 'Dumme Ideen für einen guten Sommer',
     imageUrl:
-      'https://picsum.photos/200/300',
-    link: 'series/the-reivers/',
+      '/Kiera_Geman.jpg',
+    link: 'https://www.amazon.com/Dumme-Ideen-einen-guten-Sommer/dp/3551319855',
   },
   
 ];
