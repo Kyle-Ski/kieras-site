@@ -25,8 +25,6 @@ async function fetchPressItems(): Promise<PressItem[]> {
   return data;
 }
 
-export const revalidate = 3600; // Revalidate the page every hour (3600 seconds)
-
 export default async function PressPage() {
   const pressItems = await fetchPressItems();
 
