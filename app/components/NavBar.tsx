@@ -33,6 +33,9 @@ export default function NavBar() {
           <Link href="/contact">
             Contact
           </Link>
+          <Link href="/blog">
+            Blog
+          </Link>
         </nav>
       </div>
     </header>

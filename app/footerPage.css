@@ -1,0 +1,102 @@
+/* Footer Styling */
+.footer {
+    background-color: #000; /* Black background for contrast */
+    color: #fff; /* White text for readability */
+    padding: 1rem 2rem; /* Compact padding */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0rem; 
+    margin-top: auto; /* Ensures footer stays at the bottom of the page */
+  }
+  
+  /* Top Section: Copyright and Quick Links */
+  .footer-top {
+    display: flex;
+    justify-content: space-between; /* Align copyright to left and links to right */
+    align-items: center; /* Vertically center content */
+    flex-wrap: wrap; /* Wrap content for smaller screens */
+  }
+  
+  .footer-copyright {
+    font-size: 1rem;
+    font-style: italic;
+    text-align: left;
+    flex: 1; /* Ensures alignment with quick links */
+  }
+  
+  /* Quick Links Section */
+  .footer-quick-links {
+    text-align: right;
+    flex: 1; /* Align to the right */
+  }
+  
+  .footer-quick-links h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-quick-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-quick-links li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-quick-links a {
+    color: #00bcd4; /* Teal link color for modern look */
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  .footer-quick-links a:hover {
+    text-decoration: underline;
+    color: #ff4081; /* Pink hover effect */
+  }
+  
+  /* Social Links Section */
+  .footer-socials {
+    display: flex;
+    justify-content: center; /* Center social icons */
+    gap: 1.5rem; /* Balanced spacing between icons */
+    font-size: 1.5rem; /* Icon size */
+    padding-top: 0.3rem; /* Slightly tighter padding for compactness */
+    padding-bottom: 0.3rem; /* Slightly tighter padding */
+  }
+  
+  .footer-socials a {
+    color: #fff; /* Default white color */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+  }
+  
+  .footer-socials a:hover {
+    color: #00bcd4; /* Teal hover effect for social links */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .footer-top {
+      flex-direction: column; /* Stack copyright and quick links vertically */
+      align-items: center; /* Center content on smaller screens */
+      text-align: center;
+      gap: 1rem; /* Add spacing between sections */
+    }
+  
+    .footer-copyright,
+    .footer-quick-links {
+      text-align: center;
+      flex: none; /* Disable flex alignment for responsiveness */
+    }
+  
+    .footer-quick-links ul {
+      display: inline-block; /* Center align quick links list */
+    }
+  
+    .footer-socials {
+      margin-top: 1rem; /* Add space between quick links and social icons */
+    }
+  }
+  
