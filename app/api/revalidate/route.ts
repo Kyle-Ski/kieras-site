@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidateTag } from 'next/cache';
 
 const secret = process.env.SANITY_WEBHOOK_SECRET;
 
@@ -21,41 +22,34 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { type, slug, action } = body;
+    const { type, slug } = body;
 
-    console.log(`Processing ${action} for type: ${type}, slug: ${slug}`);
+    console.log(`Processing revalidation for type: ${type}, slug: ${slug}`);
 
-    // Helper function to revalidate paths
-    async function revalidatePath(path: string) {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=${path}`, { method: 'POST' });
-        if (!res.ok) {
-          throw new Error(`Failed to revalidate path: ${path}, status: ${res.status}`);
-        }
-        console.log(`Successfully revalidated path: ${path}`);
-      } catch (err) {
-        console.error(`Error during revalidation for path ${path}:`, err);
-      }
-    }
-
-    // Revalidation logic
+    // Tag-based revalidation
     switch (type) {
       case 'about':
-        await revalidatePath('/about');
+        revalidateTag('about');
+        console.log('Revalidated about tag');
         break;
 
       case 'blog':
         if (slug) {
-          await revalidatePath(`/blog/${slug}`);
+          revalidateTag(`blog:${slug}`);
+          console.log(`Revalidated blog tag: ${slug}`);
+        } else {
+          console.warn('No slug provided for blog revalidation.');
         }
         break;
 
       case 'press':
-        await revalidatePath('/press');
+        revalidateTag('press');
+        console.log('Revalidated press tag');
         break;
 
       case 'category':
-        await revalidatePath('/categories');
+        revalidateTag('categories');
+        console.log('Revalidated categories tag');
         break;
 
       default:

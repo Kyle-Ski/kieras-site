@@ -8,14 +8,14 @@ interface AboutContent {
   imageUrl?: string;
 }
 
-// Fetch data from Sanity
+// Fetch data from Sanity with tag-based caching
 async function fetchAboutContent(): Promise<AboutContent> {
   const query = `*[_type == "about"][0] {
     title,
     body,
     "imageUrl": image.asset->url
   }`;
-  const data = await client.fetch(query);
+  const data = await client.fetch(query, {}, { next: { tags: ["about"] } }); // Add 'about' tag for caching
   return data;
 }
 

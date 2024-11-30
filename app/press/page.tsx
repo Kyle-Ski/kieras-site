@@ -29,7 +29,7 @@ async function fetchPressItems(): Promise<PressItem[]> {
       }
     }`;
   
-    const data = await client.fetch(query);
+    const data = await client.fetch(query, {}, { next: { tags: ["press"] } }); // Add tag-based caching
     return data;
   }
   
