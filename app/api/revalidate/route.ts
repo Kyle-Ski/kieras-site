@@ -3,8 +3,16 @@ import { NextRequest, NextResponse } from 'next/server';
 const secret = process.env.SANITY_WEBHOOK_SECRET;
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  console.log("Webhook Body:", body);
+  let body: any;
+
+  // Parse the request body
+  try {
+    body = await req.json();
+    console.log("Webhook Body:", body);
+  } catch (err) {
+    console.error("Error parsing request body:", err);
+    return NextResponse.json({ message: 'Invalid JSON' }, { status: 400 });
+  }
 
   // Validate Authorization header
   const authHeader = req.headers.get('Authorization');
@@ -17,23 +25,37 @@ export async function POST(req: NextRequest) {
 
     console.log(`Processing ${action} for type: ${type}, slug: ${slug}`);
 
+    // Helper function to revalidate paths
+    async function revalidatePath(path: string) {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=${path}`, { method: 'POST' });
+        if (!res.ok) {
+          throw new Error(`Failed to revalidate path: ${path}, status: ${res.status}`);
+        }
+        console.log(`Successfully revalidated path: ${path}`);
+      } catch (err) {
+        console.error(`Error during revalidation for path ${path}:`, err);
+      }
+    }
+
+    // Revalidation logic
     switch (type) {
       case 'about':
-        await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=/about`, { method: 'POST' });
+        await revalidatePath('/about');
         break;
 
       case 'blog':
         if (slug) {
-          await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=/blog/${slug}`, { method: 'POST' });
+          await revalidatePath(`/blog/${slug}`);
         }
         break;
 
       case 'press':
-        await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=/press`, { method: 'POST' });
+        await revalidatePath('/press');
         break;
 
       case 'category':
-        await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=/categories`, { method: 'POST' });
+        await revalidatePath('/categories');
         break;
 
       default:
