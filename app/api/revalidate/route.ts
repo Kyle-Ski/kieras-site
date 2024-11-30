@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 const secret = process.env.SANITY_WEBHOOK_SECRET;
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+    const body = await req.json();
+    console.log("REVALIDATE GOT HIT", body)
 
   // Validate Authorization header
   const authHeader = req.headers.get('Authorization');
