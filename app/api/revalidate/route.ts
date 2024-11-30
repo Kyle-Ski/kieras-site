@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 const secret = process.env.SANITY_WEBHOOK_SECRET;
 
 export async function POST(req: NextRequest) {
-    const body = await req.json();
-    console.log("REVALIDATE GOT HIT", body)
+  const body = await req.json();
+  console.log("Webhook Body:", body);
 
   // Validate Authorization header
   const authHeader = req.headers.get('Authorization');
@@ -13,40 +13,31 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { type, slug, action, deleted } = body;
+    const { type, slug, action } = body;
 
-    if (deleted) {
-      // Handle document deletion
-      console.log(`Document of type "${type}" with slug "${slug}" was deleted.`);
-      return NextResponse.json({ message: `Handled delete for slug: ${slug}` });
-    }
+    console.log(`Processing ${action} for type: ${type}, slug: ${slug}`);
 
-    switch (action) {
-      case 'create':
-        console.log(`New document of type "${type}" created with slug "${slug}".`);
-        break;
-
-      case 'update':
-        console.log(`Document of type "${type}" updated with slug "${slug}".`);
-        break;
-
-      default:
-        return NextResponse.json({ message: 'Unknown action' });
-    }
-
-    // Revalidate specific paths based on the document type
     switch (type) {
-      case 'aboutType':
+      case 'about':
         await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=/about`, { method: 'POST' });
         break;
 
-      case 'blogPostType':
+      case 'blog':
         if (slug) {
           await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=/blog/${slug}`, { method: 'POST' });
         }
         break;
 
+      case 'press':
+        await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=/press`, { method: 'POST' });
+        break;
+
+      case 'category':
+        await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate?path=/categories`, { method: 'POST' });
+        break;
+
       default:
+        console.log(`No revalidation configured for type: ${type}`);
         return NextResponse.json({ message: `No revalidation configured for type: ${type}` });
     }
 
