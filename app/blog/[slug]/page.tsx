@@ -2,8 +2,8 @@ import { client } from "@/sanity/lib/client";
 import { PortableText, PortableTextComponentProps, PortableTextReactComponents } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
-import imageUrlBuilder from '@sanity/image-url';
-import "../../blogPost.css"; // Ensure this includes styles for navigation
+import imageUrlBuilder from "@sanity/image-url";
+import "../../blogPost.css";
 
 interface BlogPost {
   title: string;
@@ -49,7 +49,7 @@ async function fetchBlogNavigation(currentSlug: string, publishedAt: string) {
 
   const [previousPost, nextPost] = await Promise.all([
     client.fetch(previousQuery, { publishedAt }),
-    client.fetch(nextQuery, { publishedAt })
+    client.fetch(nextQuery, { publishedAt }),
   ]);
 
   return { previousPost, nextPost };
@@ -78,9 +78,7 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
   },
   block: {
     blockquote: ({ children }: PortableTextComponentProps<any>) => (
-      <blockquote className="blog-blockquote">
-        {children}
-      </blockquote>
+      <blockquote className="blog-blockquote">{children}</blockquote>
     ),
     normal: ({ children }: PortableTextComponentProps<any>) => (
       <p className="blog-paragraph">{children}</p>
@@ -93,7 +91,8 @@ export default async function BlogPostPage({
 }: {
   params: { slug: string };
 }) {
-  const { slug } = await params;
+  const { slug } = params; 
+
   const blogPost = await fetchBlogPost(slug);
 
   if (!blogPost) {
@@ -110,13 +109,9 @@ export default async function BlogPostPage({
         <h1 className="blog-post-title">{title}</h1>
         <div className="blog-post-meta">
           <p className="blog-author">By {author || "Unknown Author"}</p>
-          <p className="blog-date">
-            {new Date(publishedAt).toLocaleDateString()}
-          </p>
+          <p className="blog-date">{new Date(publishedAt).toLocaleDateString()}</p>
           {categories && (
-            <p className="blog-categories">
-              Categories: {categories.join(", ")}
-            </p>
+            <p className="blog-categories">Categories: {categories.join(", ")}</p>
           )}
         </div>
       </header>
