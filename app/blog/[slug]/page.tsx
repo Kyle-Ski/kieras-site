@@ -86,12 +86,13 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
   },
 };
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params; 
+export default async function BlogPostPage(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+) {
+  const params = await props.params;
+  const { slug } = params;
 
   const blogPost = await fetchBlogPost(slug);
 
