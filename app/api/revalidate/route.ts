@@ -22,11 +22,10 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { type, slug } = body;
+    const { type, slug, action } = body;
 
-    console.log(`Processing revalidation for type: ${type}, slug: ${slug}`);
+    console.log(`Processing revalidation for type: ${type}, slug: ${slug}, action: ${action}`);
 
-    // Handle different types for revalidation
     switch (type) {
       case 'about':
         revalidateTag('about');
@@ -34,16 +33,21 @@ export async function POST(req: NextRequest) {
         break;
 
       case 'post':
-        // Revalidate main blog page
-        revalidateTag('blog');
-        console.log('Revalidated main blog tag');
-
-        // Revalidate individual blog post
-        if (slug) {
-          revalidateTag(`blog:${slug}`);
-          console.log(`Revalidated individual blog post: ${slug}`);
+        if (action === 'delete') {
+          // Handle post deletions
+          revalidateTag('blog'); // Ensure main blog page is updated
+          console.log('Revalidated main blog page after deletion');
         } else {
-          console.warn('No slug provided for blog post revalidation.');
+          // Handle post create/update
+          revalidateTag('blog'); // Main blog page
+          console.log('Revalidated main blog tag');
+
+          if (slug) {
+            revalidateTag(`blog:${slug}`); // Individual post
+            console.log(`Revalidated blog post: ${slug}`);
+          } else {
+            console.warn('No slug provided for blog post revalidation.');
+          }
         }
         break;
 
