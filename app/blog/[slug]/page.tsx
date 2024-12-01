@@ -1,8 +1,9 @@
 import { client } from "@/sanity/lib/client";
-import { PortableText, PortableTextReactComponents } from "@portabletext/react";
+import { PortableText, PortableTextComponentProps, PortableTextReactComponents } from "@portabletext/react";
 import Image from "next/image";
-import imageUrlBuilder from "@sanity/image-url";
-import "../../blogPost.css"
+import Link from "next/link";
+import imageUrlBuilder from '@sanity/image-url';
+import "../../blogPost.css"; // Ensure this includes styles for navigation
 
 interface BlogPost {
   title: string;
@@ -14,6 +15,7 @@ interface BlogPost {
   categories?: string[];
   author?: string;
   body: any;
+  slug: string;
 }
 
 async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
@@ -26,11 +28,31 @@ async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
     publishedAt,
     "categories": categories[]->title,
     "author": author->name,
-    body
+    body,
+    slug
   }`;
 
   const data = await client.fetch(query, { slug });
   return data || null;
+}
+
+async function fetchBlogNavigation(currentSlug: string, publishedAt: string) {
+  const previousQuery = `*[_type == "post" && publishedAt < $publishedAt] | order(publishedAt desc)[0] {
+    title,
+    "slug": slug.current
+  }`;
+
+  const nextQuery = `*[_type == "post" && publishedAt > $publishedAt] | order(publishedAt asc)[0] {
+    title,
+    "slug": slug.current
+  }`;
+
+  const [previousPost, nextPost] = await Promise.all([
+    client.fetch(previousQuery, { publishedAt }),
+    client.fetch(nextQuery, { publishedAt })
+  ]);
+
+  return { previousPost, nextPost };
 }
 
 const builder = imageUrlBuilder(client);
@@ -48,37 +70,21 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
           alt={value.alt || "Blog post image"}
           width={800}
           height={500}
-          className="blog-main-image"
+          className="blog-image-element"
           loading="lazy"
         />
       </div>
     ),
   },
   block: {
-    blockquote: ({ children }) => <blockquote className="blog-blockquote">{children}</blockquote>,
-    normal: ({ children }) => <p className="blog-paragraph">{children}</p>,
-    custom: ({ children, value }) => {
-      switch (value.style) {
-        case "h1":
-          return <h1 className="blog-heading blog-heading-1">{children}</h1>;
-        case "h2":
-          return <h2 className="blog-heading blog-heading-2">{children}</h2>;
-        case "h3":
-          return <h3 className="blog-heading blog-heading-3">{children}</h3>;
-        case "h4":
-          return <h4 className="blog-heading blog-heading-4">{children}</h4>;
-        default:
-          return <p className="blog-paragraph">{children}</p>;
-      }
-    },
-  },
-  list: {
-    bullet: ({ children }) => <ul className="blog-list blog-list-bullet">{children}</ul>,
-    number: ({ children }) => <ol className="blog-list blog-list-number">{children}</ol>,
-  },
-  listItem: {
-    bullet: ({ children }) => <li className="blog-list-item">{children}</li>,
-    number: ({ children }) => <li className="blog-list-item">{children}</li>,
+    blockquote: ({ children }: PortableTextComponentProps<any>) => (
+      <blockquote className="blog-blockquote">
+        {children}
+      </blockquote>
+    ),
+    normal: ({ children }: PortableTextComponentProps<any>) => (
+      <p className="blog-paragraph">{children}</p>
+    ),
   },
 };
 
@@ -94,21 +100,27 @@ export default async function BlogPostPage({
     return <div>Post not found</div>;
   }
 
+  const { previousPost, nextPost } = await fetchBlogNavigation(blogPost.slug, blogPost.publishedAt);
+
   const { title, mainImage, publishedAt, categories, author, body } = blogPost;
 
   return (
     <article className="blog-post">
-      {/* Blog Title */}
       <header className="blog-post-header">
         <h1 className="blog-post-title">{title}</h1>
         <div className="blog-post-meta">
           <p className="blog-author">By {author || "Unknown Author"}</p>
-          <p className="blog-date">{new Date(publishedAt).toLocaleDateString()}</p>
-          {categories && <p className="blog-categories">Categories: {categories.join(", ")}</p>}
+          <p className="blog-date">
+            {new Date(publishedAt).toLocaleDateString()}
+          </p>
+          {categories && (
+            <p className="blog-categories">
+              Categories: {categories.join(", ")}
+            </p>
+          )}
         </div>
       </header>
 
-      {/* Blog Main Image */}
       {mainImage?.url && (
         <div className="blog-image-container">
           <Image
@@ -121,10 +133,30 @@ export default async function BlogPostPage({
         </div>
       )}
 
-      {/* Blog Content */}
       <section className="blog-body">
         <PortableText value={body} components={portableTextComponents} />
       </section>
+
+      {/* Blog Navigation */}
+      <div className="blog-navigation">
+        <h3 className="blog-navigation-title">Blog Navigation</h3>
+        <div className="blog-navigation-links">
+          {nextPost ? (
+            <Link href={`/blog/${nextPost.slug}`} title={`Previous Post: ${nextPost.title}`}>
+              ← {nextPost.title}
+            </Link>
+          ) : (
+            <Link href="/blog">← Back to Blog</Link>
+          )}
+          {previousPost ? (
+            <Link href={`/blog/${previousPost.slug}`} title={`Next Post: ${previousPost.title}`}>
+              {previousPost.title} →
+            </Link>
+          ) : (
+            <Link href="/blog">Back to Blog →</Link>
+          )}
+        </div>
+      </div>
     </article>
   );
 }
