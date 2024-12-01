@@ -32,25 +32,6 @@ export async function POST(req: NextRequest) {
         console.log('Revalidated about tag');
         break;
 
-      case 'post':
-        if (action === 'delete') {
-          // Handle post deletions
-          revalidateTag('blog'); // Ensure main blog page is updated
-          console.log('Revalidated main blog page after deletion');
-        } else {
-          // Handle post create/update
-          revalidateTag('blog'); // Main blog page
-          console.log('Revalidated main blog tag');
-
-          if (slug) {
-            revalidateTag(`blog:${slug}`); // Individual post
-            console.log(`Revalidated blog post: ${slug}`);
-          } else {
-            console.warn('No slug provided for blog post revalidation.');
-          }
-        }
-        break;
-
       case 'press':
         revalidateTag('press');
         console.log('Revalidated press tag');
@@ -61,8 +42,28 @@ export async function POST(req: NextRequest) {
         console.log('Revalidated categories tag');
         break;
 
+      case 'post':
+        // Always revalidate the main blog page
+        revalidateTag('blog');
+        console.log('Revalidated main blog tag');
+
+        // Handle specific actions for posts
+        if (action === 'delete') {
+          console.log(`Deleted post: ${slug}. Only main blog page revalidated.`);
+        } else if (action === 'create' || action === 'update') {
+          if (slug) {
+            revalidateTag(`blog:${slug}`);
+            console.log(`Revalidated blog post: ${slug}`);
+          } else {
+            console.warn('No slug provided for blog post revalidation.');
+          }
+        } else {
+          console.warn(`Unhandled action: ${action}`);
+        }
+        break;
+
       default:
-        console.log(`No revalidation configured for type: ${type}`);
+        console.warn(`Unhandled type: ${type}`);
         return NextResponse.json({ message: `No revalidation configured for type: ${type}` });
     }
 
