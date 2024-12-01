@@ -37,7 +37,7 @@ export default function RootLayout({
         style={{ paddingTop: "4rem" }} /* Adjust this to match navbar height */
       >
         <NavBar />
-        <main className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <main className="container mx-auto sm:px-6 lg:px-8">
           {children}
         </main>
         <Footer/>
