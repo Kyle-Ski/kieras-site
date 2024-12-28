@@ -1,5 +1,10 @@
+import { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
-import { PortableText, PortableTextComponentProps, PortableTextReactComponents } from "@portabletext/react";
+import {
+  PortableText,
+  PortableTextComponentProps,
+  PortableTextReactComponents,
+} from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
@@ -86,21 +91,74 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
   },
 };
 
-export default async function BlogPostPage(
-  props: {
-    params: Promise<{ slug: string }>;
-  }
-) {
-  const params = await props.params;
-  const { slug } = params;
+/**
+ * generateMetadata
+ * 
+ * This function runs on the server before rendering the page. 
+ * It returns metadata (title, description, OG, Twitter, etc.) 
+ * specifically for the requested post.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const blogPost = await fetchBlogPost(params.slug);
 
+  // Fallback metadata if the post is not found
+  if (!blogPost) {
+    return {
+      title: "Post Not Found | Kiera Stewart",
+      description: "This blog post does not exist or has been removed.",
+    };
+  }
+
+  // Create a short excerpt from the body for meta description
+  const plainBodyText = JSON.stringify(blogPost.body) || "";
+  const excerpt = plainBodyText.slice(0, 150).replace(/['"]/g, "");
+
+  return {
+    title: `${blogPost.title} | Kiera Stewart`,
+    description: excerpt,
+    openGraph: {
+      title: blogPost.title,
+      description: excerpt,
+      images: blogPost.mainImage?.url ? [blogPost.mainImage.url] : [],
+      url: `https://www.kierastewart.com/blog/${blogPost.slug}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blogPost.title,
+      description: excerpt,
+      images: blogPost.mainImage?.url ? [blogPost.mainImage.url] : [],
+    },
+  };
+}
+
+/**
+ * BlogPostPage
+ * 
+ * Renders the individual blog post. Pulls data from Sanity via fetchBlogPost().
+ */
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
   const blogPost = await fetchBlogPost(slug);
 
+  // If no blog post is found, show a "Not Found" message or page
   if (!blogPost) {
     return <div>Post not found</div>;
   }
 
-  const { previousPost, nextPost } = await fetchBlogNavigation(blogPost.slug, blogPost.publishedAt);
+  // Fetch neighboring posts for navigation links (previous/next)
+  const { previousPost, nextPost } = await fetchBlogNavigation(
+    blogPost.slug,
+    blogPost.publishedAt
+  );
 
   const { title, mainImage, publishedAt, categories, author, body } = blogPost;
 
@@ -110,9 +168,13 @@ export default async function BlogPostPage(
         <h1 className="blog-post-title">{title}</h1>
         <div className="blog-post-meta">
           <p className="blog-author">By {author || "Unknown Author"}</p>
-          <p className="blog-date">{new Date(publishedAt).toLocaleDateString()}</p>
+          <p className="blog-date">
+            {new Date(publishedAt).toLocaleDateString()}
+          </p>
           {categories && (
-            <p className="blog-categories">Categories: {categories.join(", ")}</p>
+            <p className="blog-categories">
+              Categories: {categories.join(", ")}
+            </p>
           )}
         </div>
       </header>
@@ -138,14 +200,20 @@ export default async function BlogPostPage(
         <h3 className="blog-navigation-title">Blog Navigation</h3>
         <div className="blog-navigation-links">
           {nextPost ? (
-            <Link href={`/blog/${nextPost.slug}`} title={`Previous Post: ${nextPost.title}`}>
+            <Link
+              href={`/blog/${nextPost.slug}`}
+              title={`Previous Post: ${nextPost.title}`}
+            >
               ← {nextPost.title}
             </Link>
           ) : (
             <Link href="/blog">← Back to Blog</Link>
           )}
           {previousPost ? (
-            <Link href={`/blog/${previousPost.slug}`} title={`Next Post: ${previousPost.title}`}>
+            <Link
+              href={`/blog/${previousPost.slug}`}
+              title={`Next Post: ${previousPost.title}`}
+            >
               {previousPost.title} →
             </Link>
           ) : (
