@@ -104,8 +104,9 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
 // --- generateMetadata ---
 export async function generateMetadata({
   params,
-  searchParams
-}: PageProps): Promise<Metadata> {
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
   const blogPost = await fetchBlogPost(params.slug);
 
   if (!blogPost) {
@@ -143,7 +144,11 @@ export async function generateMetadata({
 }
 
 // --- Page Component ---
-export default async function BlogPostPage({ params, searchParams }: PageProps) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string }
+}) {
   // Extract the slug
   const { slug } = params;
 
