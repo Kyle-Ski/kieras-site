@@ -25,7 +25,10 @@ interface BlogPost {
 }
 
 interface PageProps {
-  params: { slug: string };
+  params: {
+    slug: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 // --- Fetch Helpers ---
@@ -101,6 +104,7 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
 // --- generateMetadata ---
 export async function generateMetadata({
   params,
+  searchParams
 }: PageProps): Promise<Metadata> {
   const blogPost = await fetchBlogPost(params.slug);
 
@@ -139,7 +143,7 @@ export async function generateMetadata({
 }
 
 // --- Page Component ---
-export default async function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({ params, searchParams }: PageProps) {
   // Extract the slug
   const { slug } = params;
 
