@@ -10,6 +10,7 @@ import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
 import "../../blogPost.css";
 
+// ---- Types ----
 interface BlogPost {
   title: string;
   mainImage?: {
@@ -23,6 +24,13 @@ interface BlogPost {
   slug: string;
 }
 
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+// ---- Queries ----
 async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
   const query = `*[_type == "post" && slug.current == $slug][0] {
     title,
@@ -60,12 +68,13 @@ async function fetchBlogNavigation(currentSlug: string, publishedAt: string) {
   return { previousPost, nextPost };
 }
 
+// ---- Image Builder ----
 const builder = imageUrlBuilder(client);
-
 function urlFor(source: any) {
   return builder.image(source).url();
 }
 
+// ---- Portable Text Components ----
 const portableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
     image: ({ value }: { value: any }) => (
@@ -93,19 +102,13 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
 
 /**
  * generateMetadata
- * 
- * This function runs on the server before rendering the page. 
- * It returns metadata (title, description, OG, Twitter, etc.) 
- * specifically for the requested post.
+ *
+ * Returns page-level metadata for SEO & social sharing.
  */
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const blogPost = await fetchBlogPost(params.slug);
 
-  // Fallback metadata if the post is not found
+  // Fallback if post not found
   if (!blogPost) {
     return {
       title: "Post Not Found | Kiera Stewart",
@@ -113,7 +116,7 @@ export async function generateMetadata({
     };
   }
 
-  // Create a short excerpt from the body for meta description
+  // Create excerpt from the post body
   const plainBodyText = JSON.stringify(blogPost.body) || "";
   const excerpt = plainBodyText.slice(0, 150).replace(/['"]/g, "");
 
@@ -123,7 +126,9 @@ export async function generateMetadata({
     openGraph: {
       title: blogPost.title,
       description: excerpt,
-      images: blogPost.mainImage?.url ? [blogPost.mainImage.url] : [],
+      images: blogPost.mainImage?.url
+        ? [blogPost.mainImage.url]
+        : ["/og-image.jpeg"], // fallback
       url: `https://www.kierastewart.com/blog/${blogPost.slug}`,
       type: "article",
     },
@@ -131,30 +136,28 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: blogPost.title,
       description: excerpt,
-      images: blogPost.mainImage?.url ? [blogPost.mainImage.url] : [],
+      images: blogPost.mainImage?.url
+        ? [blogPost.mainImage.url]
+        : ["/og-image.jpeg"],
     },
   };
 }
 
 /**
  * BlogPostPage
- * 
- * Renders the individual blog post. Pulls data from Sanity via fetchBlogPost().
+ *
+ * Renders an individual blog post.
  */
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = params;
-  const blogPost = await fetchBlogPost(slug);
 
-  // If no blog post is found, show a "Not Found" message or page
+  // Fetch the post
+  const blogPost = await fetchBlogPost(slug);
   if (!blogPost) {
     return <div>Post not found</div>;
   }
 
-  // Fetch neighboring posts for navigation links (previous/next)
+  // Fetch previous/next post for navigation
   const { previousPost, nextPost } = await fetchBlogNavigation(
     blogPost.slug,
     blogPost.publishedAt
@@ -195,7 +198,7 @@ export default async function BlogPostPage({
         <PortableText value={body} components={portableTextComponents} />
       </section>
 
-      {/* Blog Navigation */}
+      {/* Navigation to previous/next posts */}
       <div className="blog-navigation">
         <h3 className="blog-navigation-title">Blog Navigation</h3>
         <div className="blog-navigation-links">
