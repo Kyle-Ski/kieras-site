@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 import { client } from "@/sanity/lib/client";
 import {
   PortableText,
@@ -24,12 +24,9 @@ interface BlogPost {
   slug: string;
 }
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
+type PageProps = {
+  params: { slug: string };
+};
 
 // --- Fetch Helpers ---
 async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
@@ -102,11 +99,10 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
 };
 
 // --- generateMetadata ---
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string }
-}): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const blogPost = await fetchBlogPost(params.slug);
 
   if (!blogPost) {
@@ -144,14 +140,8 @@ export async function generateMetadata({
 }
 
 // --- Page Component ---
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  // Extract the slug
-  const { slug } = params;
-
+export default async function BlogPostPage(props: PageProps) {
+  const { slug } = props.params;
   // Fetch this post
   const blogPost = await fetchBlogPost(slug);
   if (!blogPost) {
