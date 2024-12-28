@@ -10,7 +10,7 @@ import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
 import "../../blogPost.css";
 
-// ---- Types ----
+// --- Types ---
 interface BlogPost {
   title: string;
   mainImage?: {
@@ -25,12 +25,10 @@ interface BlogPost {
 }
 
 interface PageProps {
-  params: {
-    slug: string;
-  };
+  params: { slug: string };
 }
 
-// ---- Queries ----
+// --- Fetch Helpers ---
 async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
   const query = `*[_type == "post" && slug.current == $slug][0] {
     title,
@@ -68,13 +66,13 @@ async function fetchBlogNavigation(currentSlug: string, publishedAt: string) {
   return { previousPost, nextPost };
 }
 
-// ---- Image Builder ----
+// --- Image Builder ---
 const builder = imageUrlBuilder(client);
 function urlFor(source: any) {
   return builder.image(source).url();
 }
 
-// ---- Portable Text Components ----
+// --- PortableText Components ---
 const portableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
     image: ({ value }: { value: any }) => (
@@ -100,15 +98,12 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
   },
 };
 
-/**
- * generateMetadata
- *
- * Returns page-level metadata for SEO & social sharing.
- */
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+// --- generateMetadata ---
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const blogPost = await fetchBlogPost(params.slug);
 
-  // Fallback if post not found
   if (!blogPost) {
     return {
       title: "Post Not Found | Kiera Stewart",
@@ -116,7 +111,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  // Create excerpt from the post body
+  // Create a short excerpt for SEO
   const plainBodyText = JSON.stringify(blogPost.body) || "";
   const excerpt = plainBodyText.slice(0, 150).replace(/['"]/g, "");
 
@@ -143,26 +138,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-/**
- * BlogPostPage
- *
- * Renders an individual blog post.
- */
+// --- Page Component ---
 export default async function BlogPostPage({ params }: PageProps) {
+  // Extract the slug
   const { slug } = params;
 
-  // Fetch the post
+  // Fetch this post
   const blogPost = await fetchBlogPost(slug);
   if (!blogPost) {
     return <div>Post not found</div>;
   }
 
-  // Fetch previous/next post for navigation
+  // Fetch neighboring posts
   const { previousPost, nextPost } = await fetchBlogNavigation(
     blogPost.slug,
     blogPost.publishedAt
   );
 
+  // Render the post
   const { title, mainImage, publishedAt, categories, author, body } = blogPost;
 
   return (
@@ -198,25 +191,19 @@ export default async function BlogPostPage({ params }: PageProps) {
         <PortableText value={body} components={portableTextComponents} />
       </section>
 
-      {/* Navigation to previous/next posts */}
+      {/* Blog Navigation */}
       <div className="blog-navigation">
         <h3 className="blog-navigation-title">Blog Navigation</h3>
         <div className="blog-navigation-links">
           {nextPost ? (
-            <Link
-              href={`/blog/${nextPost.slug}`}
-              title={`Previous Post: ${nextPost.title}`}
-            >
+            <Link href={`/blog/${nextPost.slug}`} title={`Previous Post: ${nextPost.title}`}>
               ← {nextPost.title}
             </Link>
           ) : (
             <Link href="/blog">← Back to Blog</Link>
           )}
           {previousPost ? (
-            <Link
-              href={`/blog/${previousPost.slug}`}
-              title={`Next Post: ${previousPost.title}`}
-            >
+            <Link href={`/blog/${previousPost.slug}`} title={`Next Post: ${previousPost.title}`}>
               {previousPost.title} →
             </Link>
           ) : (
