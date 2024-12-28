@@ -11,6 +11,11 @@ import imageUrlBuilder from "@sanity/image-url";
 import "../../blogPost.css";
 
 // --- Types ---
+
+type GenerateMetadataProps = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 interface BlogPost {
   title: string;
   mainImage?: {
@@ -100,7 +105,7 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
 
 // --- generateMetadata ---
 export async function generateMetadata(
-  { params }: { params: { slug: string } },
+  { params }: GenerateMetadataProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const blogPost = await fetchBlogPost(params.slug);
@@ -140,8 +145,12 @@ export async function generateMetadata(
 }
 
 // --- Page Component ---
-export default async function BlogPostPage(props: PageProps) {
-  const { slug } = props.params;
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
   // Fetch this post
   const blogPost = await fetchBlogPost(slug);
   if (!blogPost) {
