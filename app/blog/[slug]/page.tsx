@@ -1,21 +1,10 @@
-import { Metadata, ResolvingMetadata } from "next";
 import { client } from "@/sanity/lib/client";
-import {
-  PortableText,
-  PortableTextComponentProps,
-  PortableTextReactComponents,
-} from "@portabletext/react";
+import { PortableText, PortableTextComponentProps, PortableTextReactComponents } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
 import "../../blogPost.css";
 
-// --- Types ---
-
-type GenerateMetadataProps = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
 interface BlogPost {
   title: string;
   mainImage?: {
@@ -29,11 +18,6 @@ interface BlogPost {
   slug: string;
 }
 
-type PageProps = {
-  params: { slug: string };
-};
-
-// --- Fetch Helpers ---
 async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
   const query = `*[_type == "post" && slug.current == $slug][0] {
     title,
@@ -71,13 +55,12 @@ async function fetchBlogNavigation(currentSlug: string, publishedAt: string) {
   return { previousPost, nextPost };
 }
 
-// --- Image Builder ---
 const builder = imageUrlBuilder(client);
+
 function urlFor(source: any) {
   return builder.image(source).url();
 }
 
-// --- PortableText Components ---
 const portableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
     image: ({ value }: { value: any }) => (
@@ -103,67 +86,22 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
   },
 };
 
-// --- generateMetadata ---
-export async function generateMetadata(
-  { params }: GenerateMetadataProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const blogPost = await fetchBlogPost(params.slug);
-
-  if (!blogPost) {
-    return {
-      title: "Post Not Found | Kiera Stewart",
-      description: "This blog post does not exist or has been removed.",
-    };
+export default async function BlogPostPage(
+  props: {
+    params: Promise<{ slug: string }>;
   }
-
-  // Create a short excerpt for SEO
-  const plainBodyText = JSON.stringify(blogPost.body) || "";
-  const excerpt = plainBodyText.slice(0, 150).replace(/['"]/g, "");
-
-  return {
-    title: `${blogPost.title} | Kiera Stewart`,
-    description: excerpt,
-    openGraph: {
-      title: blogPost.title,
-      description: excerpt,
-      images: blogPost.mainImage?.url
-        ? [blogPost.mainImage.url]
-        : ["/og-image.jpeg"], // fallback
-      url: `https://www.kierastewart.com/blog/${blogPost.slug}`,
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: blogPost.title,
-      description: excerpt,
-      images: blogPost.mainImage?.url
-        ? [blogPost.mainImage.url]
-        : ["/og-image.jpeg"],
-    },
-  };
-}
-
-// --- Page Component ---
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+) {
+  const params = await props.params;
   const { slug } = params;
-  // Fetch this post
+
   const blogPost = await fetchBlogPost(slug);
+
   if (!blogPost) {
     return <div>Post not found</div>;
   }
 
-  // Fetch neighboring posts
-  const { previousPost, nextPost } = await fetchBlogNavigation(
-    blogPost.slug,
-    blogPost.publishedAt
-  );
+  const { previousPost, nextPost } = await fetchBlogNavigation(blogPost.slug, blogPost.publishedAt);
 
-  // Render the post
   const { title, mainImage, publishedAt, categories, author, body } = blogPost;
 
   return (
@@ -172,13 +110,9 @@ export default async function BlogPostPage({
         <h1 className="blog-post-title">{title}</h1>
         <div className="blog-post-meta">
           <p className="blog-author">By {author || "Unknown Author"}</p>
-          <p className="blog-date">
-            {new Date(publishedAt).toLocaleDateString()}
-          </p>
+          <p className="blog-date">{new Date(publishedAt).toLocaleDateString()}</p>
           {categories && (
-            <p className="blog-categories">
-              Categories: {categories.join(", ")}
-            </p>
+            <p className="blog-categories">Categories: {categories.join(", ")}</p>
           )}
         </div>
       </header>
