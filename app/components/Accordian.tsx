@@ -31,7 +31,7 @@ const expandableItems: ExpandableItem[] = [
     title: 'Dumme Ideen für einen guten Sommer',
     imageUrl:
       '/Kiera_Geman.jpg',
-    link: 'https://www.amazon.com/Dumme-Ideen-einen-guten-Sommer/dp/3551319855', //"/press#Dumme-Ideen-für-einen-guten-Sommer"
+    link: '/press#Dumme-Ideen-für-einen-guten-Sommer', //"https://www.amazon.com/Dumme-Ideen-einen-guten-Sommer/dp/3551319855"
   },
   
 ];

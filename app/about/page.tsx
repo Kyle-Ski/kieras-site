@@ -1,6 +1,9 @@
 import { client } from "@/sanity/lib/client";
 import { PortableText } from "next-sanity";
 import "../aboutPage.css";
+import Link from "next/link";
+import { FaInstagram } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 interface AboutContent {
   title: string;
@@ -37,6 +40,29 @@ export default async function AboutPage() {
         <h1 className="about-title">{aboutContent.title}</h1>
         <div className="about-body">
           <PortableText value={aboutContent.body} />
+
+        </div>
+        <div className="about-connect">
+          <h2 id="follow-me-about">Get in Contact:</h2>
+          <div className="about-socials">
+            <Link
+              href="https://instagram.com/kierastew"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <FaInstagram />
+            </Link>
+            <Link
+              href="mailto:kiera@kierastewart.com"
+              aria-label="Email"
+            >
+              <span className="about-social-with-text">
+                <MdEmail />
+                <span className="about-social-text">kiera@kierastewart.com</span>
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
