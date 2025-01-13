@@ -17,7 +17,7 @@ export const pressType = defineType({
       title: 'Book Summary',
       type: 'text',
       description: 'A short summary of the book.',
-      validation: (Rule) => Rule.max(300),
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'image',
@@ -26,6 +26,13 @@ export const pressType = defineType({
       options: {
         hotspot: true, // Enables cropping
       },
+    },
+    {
+      name: 'link',
+      title: 'Purchase Book Link',
+      type: 'string',
+      description: 'The link we want to send the user to, to purchase the book.',
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'quotes',
