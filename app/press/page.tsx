@@ -1,6 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import "../pressPage.css";
+import Link from "next/link";
 
 interface Quote {
   quote: string;
@@ -14,13 +15,15 @@ interface PressItem {
   summary: string;
   imageUrl?: string;
   quotes: Quote[];
+  link: string;
 }
 
 async function fetchPressItems(): Promise<PressItem[]> {
-    const query = `*[_type == "press"] | order(quotes[0].date desc) {
+  const query = `*[_type == "press"] | order(quotes[0].date desc) {
       title,
       summary,
       "imageUrl": image.asset->url,
+      link,
       quotes[] {
         quote,
         publication,
@@ -28,11 +31,11 @@ async function fetchPressItems(): Promise<PressItem[]> {
         date
       }
     }`;
-  
-    const data = await client.fetch(query, {}, { next: { tags: ["press"] } }); // Add tag-based caching
-    return data;
-  }
-  
+
+  const data = await client.fetch(query, {}, { next: { tags: ["press"] } }); // Add tag-based caching
+  return data;
+}
+
 
 export default async function PressPage() {
   const pressItems = await fetchPressItems();
@@ -42,9 +45,9 @@ export default async function PressPage() {
       <h1 className="press-title">In the Press</h1>
       <div className="press-grid">
         {pressItems.map((item, index) => (
-          <div key={index} className="press-card">
+          <div style={{ scrollMarginTop: '100px' }} id={item.title.split(" ").join("-")} key={index} className="press-card">
             {item.imageUrl && (
-                
+
               <div className="press-image-container">
                 <h2 className="press-item-title">{item.title}</h2>
                 <Image
@@ -57,7 +60,7 @@ export default async function PressPage() {
               </div>
             )}
             <div className="press-content">
-              
+            <Link className="press-purchase" target="_blank" href={item.link}>📖 Purchase Book</Link>
               <p className="press-summary">{item.summary}</p>
 
               <div className="press-quotes">
