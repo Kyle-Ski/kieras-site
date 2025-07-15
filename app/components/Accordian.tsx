@@ -13,27 +13,26 @@ const expandableItems: ExpandableItem[] = [
     title: 'The Summer of Bad Ideas',
     imageUrl:
       '/The_Summer_Of_Bad_Ideas.jpeg',
-    link: 'https://www.google.com/books/edition/The_Summer_of_Bad_Ideas/6XDUDAAAQBAJ?hl=en&gbpv=0',
+    link: "/press#The-Summer-of-Bad-Ideas"
   },
   {
     title: 'How to Break a Heart',
     imageUrl:
       '/How_to_Break_a_Heart.jpeg',
-    link: 'https://www.google.com/books/edition/How_to_Break_a_Heart/DmkuCwAAQBAJ?hl=en&gbpv=0',
+    link: "/press#How-to-Break-a-Heart"
   },
   {
     title: 'Fetching',
     imageUrl:
       '/Fetching.jpeg',
-    link: 'https://www.google.com/books/edition/Fetching/4ZDNZDme3JAC?hl=en&gbpv=0',
+    link: "/press#Fetching"
   },
   {
     title: 'Dumme Ideen für einen guten Sommer',
     imageUrl:
       '/Kiera_Geman.jpg',
-    link: 'https://www.amazon.com/Dumme-Ideen-einen-guten-Sommer/dp/3551319855',
+    link: '/press#Dumme-Ideen-für-einen-guten-Sommer',
   },
-  
 ];
 
 export default function ImageAccordion() {
@@ -45,13 +44,11 @@ export default function ImageAccordion() {
         className="hover-expandable-item"
         style={{ backgroundImage: `url(${item.imageUrl})` }}
       >
-        <p dangerouslySetInnerHTML={{ __html: item.title }} />
+        <p className="font-header" dangerouslySetInnerHTML={{ __html: item.title }} />
         {item.link && (
           <a
             href={item.link}
             className="u-link-block u-link-inherit"
-            target="_blank"
-            rel="noopener noreferrer"
           />
         )}
       </div>

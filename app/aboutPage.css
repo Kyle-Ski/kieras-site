@@ -1,64 +1,134 @@
 /* General Styling for the About Page */
 .about-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .about-image-container {
-    width: 100%;
-    max-height: 400px;
-    overflow: hidden;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-  }
-  
-  .about-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .about-image:hover {
-    transform: scale(1.05); /* Subtle zoom effect on hover */
-  }
-  
-  .about-content {
-    text-align: center;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-image-container {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.about-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.3s ease;
+}
+
+.about-image:hover {
+  transform: scale(1.05);
+}
+
+.about-socials {
+  display: flex;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.5rem;
+}
+
+.about-socials a {
+  color: black;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-alice); /* Body font */
+}
+
+.about-socials a:hover {
+  color: #00bcd4;
+}
+
+#follow-me-about {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #00bcd4;
+  margin-top: 1rem;
+  font-family: var(--font-cal-sans); /* Header font */
+  font-weight: 600;
+}
+
+.about-social-text {
+  color: black;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: var(--font-alice); /* Body font */
+}
+
+.about-social-text:hover {
+  color: #00bcd4;
+}
+
+.about-social-with-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.about-content {
+  text-align: center;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+  font-family: var(--font-cal-sans); /* Header font */
+}
+
+.about-body {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+  margin-top: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: var(--font-alice); /* Body font */
+}
+
+.about-body p {
+  font-family: var(--font-alice); /* Body font for all paragraphs */
+  margin-bottom: 1rem;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
   .about-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #333;
+    font-size: 2rem;
   }
-  
+
   .about-body {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #555;
-    margin-top: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
+    font-size: 1rem;
   }
-  
-  @media (max-width: 768px) {
-    .about-title {
-      font-size: 2rem;
-    }
-  
-    .about-body {
-      font-size: 1rem;
-    }
-  
-    .about-image-container {
-      max-height: 300px;
-    }
+
+  .about-image-container {
+    max-width: 100%;
   }
-  
+
+  .about-image {
+    height: 450px;
+  }
+}
+
+/* Small Mobile Adjustments */
+@media (max-width: 480px) {
+  .about-image {
+    height: 350px;
+  }
+
+  .about-page {
+    padding: 1rem;
+  }
+}

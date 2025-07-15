@@ -5,6 +5,41 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Font variables */
+  --font-irish-grover: 'Irish Grover', cursive;
+  --font-cal-sans: 'Cal Sans', 'Geist Sans', system-ui, sans-serif;
+  --font-alice: 'Alice', 'Geist Sans', serif;
+}
+
+/* Apply Alice as the base font */
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-alice);
+  line-height: 1.6;
+}
+
+/* Font utility classes */
+.font-name {
+  font-family: var(--font-irish-grover);
+  font-weight: 400;
+}
+
+.font-header {
+  font-family: var(--font-cal-sans);
+  font-weight: 600;
+}
+
+.font-body {
+  font-family: var(--font-alice);
+  font-weight: 400;
+}
+
+/* Apply header font to all heading elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-cal-sans);
+  font-weight: 600;
 }
 
 /* Flex container to arrange images side by side by default */
@@ -14,7 +49,8 @@
   align-items: stretch;
   flex-wrap: nowrap;
   overflow: hidden;
-  height: 80vh; /* Updated to cover 80% of the viewport height */
+  height: 80vh;
+  /* Updated to cover 80% of the viewport height */
 }
 
 /* Each image block styling */
@@ -29,18 +65,22 @@
   justify-content: center;
   align-items: center;
   transition: flex 0.3s ease, transform 0.3s ease;
-  height: 100%; /* Ensure the items take the full height of the container */
+  height: 100%;
+  /* Ensure the items take the full height of the container */
   overflow: hidden;
 }
 
 /* Hover effect: Expand the hovered item and shrink others */
 .hover-expandable-item:hover {
-  flex: 1.5; /* Expand the hovered item */
-  transform: scale(1.01); /* Slight scaling effect */
+  flex: 1.5;
+  /* Expand the hovered item */
+  transform: scale(1.01);
+  /* Slight scaling effect */
 }
 
 .hover-expandable-item:not(:hover) {
-  flex: 1; /* Shrink non-hovered items */
+  flex: 1;
+  /* Shrink non-hovered items */
 }
 
 /* Text overlay for each image */
@@ -56,6 +96,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   z-index: 1;
+  font-family: var(--font-cal-sans); /* Headers font for book titles */
 }
 
 /* Clickable links (if needed) */
@@ -72,46 +113,113 @@
 @media (max-width: 768px) {
   .hover-flex-wrapper {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
+    /* Stack items vertically */
     align-items: stretch;
-    height: auto; /* Allow height to adjust based on content */
+    height: auto;
+    /* Allow height to adjust based on content */
   }
 
   .hover-expandable-item {
-    flex: none; /* Disable flex-grow/shrink behavior */
-    width: 100%; /* Make each item span the full width */
-    height: 300px; /* Set a fixed height for consistency */
-    background-size: cover; /* Ensure images cover their container */
+    flex: none;
+    /* Disable flex-grow/shrink behavior */
+    width: 100%;
+    /* Make each item span the full width */
+    height: 300px;
+    /* Set a fixed height for consistency */
+    background-size: cover;
+    /* Ensure images cover their container */
     background-position: center;
-    transform: none; /* Disable scaling effect */
-    transition: none; /* Remove hover transitions */
+    transform: none;
+    /* Disable scaling effect */
+    transition: none;
+    /* Remove hover transitions */
   }
 
   .hover-expandable-item:hover {
-    transform: none; /* Disable hover effects */
+    transform: none;
+    /* Disable hover effects */
   }
 
   .hover-expandable-item:not(:hover) {
-    flex: none; /* Disable shrinking for non-hovered items */
+    flex: none;
+    /* Disable shrinking for non-hovered items */
   }
 
   .hover-expandable-item p {
-    bottom: 10%; /* Keep text near the bottom */
-    font-size: 1rem; /* Slightly smaller font size */
+    bottom: 10%;
+    /* Keep text near the bottom */
+    font-size: 1rem;
+    /* Slightly smaller font size */
     padding: 0.4rem 0.8rem;
   }
 }
 
+/* Add these styles to your globals.css file */
+.nav-links a.active {
+  color: #00bcd4;
+  /* Same as hover color */
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00bcd4;
+}
+
+/* Update the existing nav-links styles for better mobile transition */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #333;
+  padding: 1rem 2rem;
+  transform: translateY(-20px) scaleY(0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top;
+}
+
+.nav-links.open {
+  transform: translateY(0) scaleY(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 768px) {
+  .nav-links a.active::after {
+    bottom: -6px;
+    /* Adjust underline position for desktop */
+  }
+
+  .nav-links {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+}
 
 /* General NavBar Styling */
 .nav-bar {
-  position: fixed; /* Ensures the navbar stays at the top */
+  position: fixed;
+  /* Ensures the navbar stays at the top */
   top: 0;
   left: 0;
   width: 100%;
-  height: 4rem; /* Define navbar height */
-  background-color: #242424; /* Dark background */
-  z-index: 1000; /* Ensure it's on top of all content */
+  height: 4rem;
+  /* Define navbar height */
+  background-color: #242424;
+  /* Dark background */
+  z-index: 1000;
+  /* Ensure it's on top of all content */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -130,6 +238,7 @@
   font-weight: bold;
   text-decoration: none;
   color: white;
+  font-family: var(--font-irish-grover); /* Apply Irish Grover to logo */
 }
 
 .hamburger {
@@ -186,10 +295,12 @@
   color: white;
   margin: 0.5rem 0;
   font-size: 1.2rem;
+  font-family: var(--font-alice); /* Body font for nav links */
 }
 
 .nav-links a:hover {
-  color: #00d084; /* Add a modern hover effect */
+  color: #59d4e5;
+  /* Add a modern hover effect */
 }
 
 /* Desktop View */
@@ -220,10 +331,4 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
