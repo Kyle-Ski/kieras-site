@@ -5,6 +5,41 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Font variables */
+  --font-irish-grover: 'Irish Grover', cursive;
+  --font-cal-sans: 'Cal Sans', 'Geist Sans', system-ui, sans-serif;
+  --font-alice: 'Alice', 'Geist Sans', serif;
+}
+
+/* Apply Alice as the base font */
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-alice);
+  line-height: 1.6;
+}
+
+/* Font utility classes */
+.font-name {
+  font-family: var(--font-irish-grover);
+  font-weight: 400;
+}
+
+.font-header {
+  font-family: var(--font-cal-sans);
+  font-weight: 600;
+}
+
+.font-body {
+  font-family: var(--font-alice);
+  font-weight: 400;
+}
+
+/* Apply header font to all heading elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-cal-sans);
+  font-weight: 600;
 }
 
 /* Flex container to arrange images side by side by default */
@@ -61,6 +96,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   z-index: 1;
+  font-family: var(--font-cal-sans); /* Headers font for book titles */
 }
 
 /* Clickable links (if needed) */
@@ -119,6 +155,57 @@
   }
 }
 
+/* Add these styles to your globals.css file */
+.nav-links a.active {
+  color: #00bcd4;
+  /* Same as hover color */
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00bcd4;
+}
+
+/* Update the existing nav-links styles for better mobile transition */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #333;
+  padding: 1rem 2rem;
+  transform: translateY(-20px) scaleY(0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top;
+}
+
+.nav-links.open {
+  transform: translateY(0) scaleY(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 768px) {
+  .nav-links a.active::after {
+    bottom: -6px;
+    /* Adjust underline position for desktop */
+  }
+
+  .nav-links {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+}
 
 /* Add these styles to your globals.css file */
 
@@ -204,6 +291,7 @@
   font-weight: bold;
   text-decoration: none;
   color: white;
+  font-family: var(--font-irish-grover); /* Apply Irish Grover to logo */
 }
 
 .hamburger {
@@ -260,6 +348,7 @@
   color: white;
   margin: 0.5rem 0;
   font-size: 1.2rem;
+  font-family: var(--font-alice); /* Body font for nav links */
 }
 
 .nav-links a:hover {
@@ -295,10 +384,4 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }

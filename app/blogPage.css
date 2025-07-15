@@ -6,21 +6,24 @@
     background-color: #f9f9f9; /* Subtle background for readability */
 }
 
-/* Blog Title */
+/* Blog Title - Use header font */
 .blog-title {
     text-align: center;
     font-size: 3rem; /* Bigger, bold title */
     margin-bottom: 1rem; /* Adjust spacing */
     color: #171717; /* Dark color for contrast */
     letter-spacing: 0.5px; /* Subtle spacing for modernity */
+    font-family: var(--font-cal-sans); /* Header font */
+    font-weight: 600;
 }
 
-/* Subtitle (Musings Line) */
+/* Subtitle (Musings Line) - Use body font */
 .blog-subtitle {
     text-align: center;
     font-size: 1.2rem; /* Subtle, smaller subtitle */
     color: #555; /* Lighter shade for differentiation */
     margin-bottom: 2rem; /* Space between subtitle and grid */
+    font-family: var(--font-alice); /* Body font */
 }
 
 /* Blog Grid Layout */
@@ -62,18 +65,22 @@
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     color: #171717; /* Consistent with title */
+    font-family: var(--font-cal-sans); /* Header font */
+    font-weight: 600;
 }
 
 .blog-author {
     font-size: 0.9rem;
     color: #777;
     margin-bottom: 0.5rem;
+    font-family: var(--font-alice); /* Body font */
 }
 
 .blog-date {
     font-size: 0.9rem;
     color: #777;
     margin-bottom: 1rem;
+    font-family: var(--font-alice); /* Body font */
 }
 
 .blog-categories {
@@ -81,23 +88,30 @@
     color: #555;
     margin-bottom: 1rem;
     font-style: italic;
+    font-family: var(--font-alice); /* Body font */
 }
 
 /* Read More Button */
 .blog-read-more {
     display: inline-block;
     font-size: 1rem;
-    color: #0070f3;
+    color: #ffffff;
+    background-color: #0070f3;
+    border-radius: 4px;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border: 1px solid #0070f3;
-    border-radius: 4px;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    font-weight: bold;
+    background-color: #005bb5;
+    transition: all 0.3s ease;
+    font-family: var(--font-alice); /* Body font */
 }
 
 .blog-read-more:hover {
     background-color: #0070f3;
     color: #fff;
+    transform: scale(1.05);
+    background-color: #2e84db;
 }
 
 /* Responsive Adjustments */

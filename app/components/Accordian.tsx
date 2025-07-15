@@ -33,7 +33,6 @@ const expandableItems: ExpandableItem[] = [
       '/Kiera_Geman.jpg',
     link: '/press#Dumme-Ideen-für-einen-guten-Sommer', //"https://www.amazon.com/Dumme-Ideen-einen-guten-Sommer/dp/3551319855"
   },
-  
 ];
 
 export default function ImageAccordion() {
@@ -45,7 +44,7 @@ export default function ImageAccordion() {
         className="hover-expandable-item"
         style={{ backgroundImage: `url(${item.imageUrl})` }}
       >
-        <p dangerouslySetInnerHTML={{ __html: item.title }} />
+        <p className="font-header" dangerouslySetInnerHTML={{ __html: item.title }} />
         {item.link && (
           <a
             href={item.link}

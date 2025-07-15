@@ -34,7 +34,8 @@ export default function NavBar() {
     <header className="nav-bar">
       <div className="nav-container">
         <div className="logo">
-          <Link href="/" onClick={() => handleLinkClick("/")}>
+
+          <Link href="/" onClick={() => handleLinkClick("/")} className="font-name">
             Kiera Stewart
           </Link>
         </div>
@@ -50,7 +51,7 @@ export default function NavBar() {
               key={item.href}
               href={item.href}
               onClick={() => handleLinkClick(item.href)}
-              className={isActive(item.href) ? "active" : ""}
+              className={`font-body ${isActive(item.href) ? "active" : ""}`}
             >
               {item.label}
             </Link>
