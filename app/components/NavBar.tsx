@@ -34,6 +34,7 @@ export default function NavBar() {
     <header className="nav-bar">
       <div className="nav-container">
         <div className="logo">
+
           <Link href="/" onClick={() => handleLinkClick("/")} className="font-name">
             Kiera Stewart
           </Link>

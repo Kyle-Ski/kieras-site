@@ -12,6 +12,7 @@ export default function Footer() {
           <h3 className="font-header">Quick Links</h3>
           <ul>
             <li>
+
               <Link href="/about" className="font-body">About</Link>
             </li>
             <li>

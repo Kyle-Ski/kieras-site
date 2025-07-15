@@ -207,6 +207,59 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Add these styles to your globals.css file */
+
+.nav-links a.active {
+  color: #00bcd4;
+  /* Same as hover color */
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00bcd4;
+}
+
+/* Update the existing nav-links styles for better mobile transition */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #333;
+  padding: 1rem 2rem;
+  transform: translateY(-20px) scaleY(0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top;
+}
+
+.nav-links.open {
+  transform: translateY(0) scaleY(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 768px) {
+  .nav-links a.active::after {
+    bottom: -6px;
+    /* Adjust underline position for desktop */
+  }
+
+  .nav-links {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 /* General NavBar Styling */
 .nav-bar {
   position: fixed;

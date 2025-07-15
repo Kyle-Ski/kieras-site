@@ -1,105 +1,128 @@
 /* General Page Styling */
 .press-page {
-    max-width: 800px; /* Center the page content */
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  
-  .press-title {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  /* Single Column Layout */
-  .press-grid {
-    display: flex;
-    flex-direction: column; /* Arrange cards in a single column */
-    gap: 2rem; /* Add spacing between cards */
-  }
-  
-  /* Card Styling */
-  .press-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column; /* Ensure content stacks vertically within each card */
-    gap: 1rem;
-  }
-  
-  /* Image Container Styling */
-  .press-image-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  .press-item-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-  
-  .press-image {
-    object-fit: cover;
-    border-radius: 4px;
-  }
-  
-  /* Content Styling */
-  .press-content {
-    flex: 1;
-  }
-  
-  .press-summary {
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  /* Quotes Section */
-  .press-quotes h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .press-quotes ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .press-quote-item {
-    margin-bottom: 1rem;
-    border-left: 3px solid #0070f3;
-    padding-left: 1rem;
-  }
-  
-  .press-quote {
-    font-size: 1rem;
-    font-style: italic;
-    color: #444;
-  }
-  
-  .press-publication {
-    font-size: 0.9rem;
-    color: #777;
-  }
-  
-  .press-date {
-    font-size: 0.8rem;
-    color: #aaa;
-  }
-  
-  .press-link {
-    font-size: 0.9rem;
-    color: #0070f3;
-    text-decoration: none;
-  }
-  
-  .press-link:hover {
-    text-decoration: underline;
-  }
-  
+  max-width: 800px;
+  /* Center the page content */
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.press-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Single Column Layout */
+.press-grid {
+  display: flex;
+  flex-direction: column;
+  /* Arrange cards in a single column */
+  gap: 2rem;
+  /* Add spacing between cards */
+}
+
+/* Card Styling */
+.press-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  /* Ensure content stacks vertically within each card */
+  gap: 1rem;
+}
+
+/* Image Container Styling */
+.press-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.press-item-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.press-image {
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Content Styling */
+.press-content {
+  flex: 1;
+}
+
+.press-summary {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Quotes Section */
+.press-quotes h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.press-quotes ul {
+  list-style: none;
+  padding: 0;
+}
+
+.press-quote-item {
+  margin-bottom: 1rem;
+  border-left: 3px solid #0070f3;
+  padding-left: 1rem;
+}
+
+.press-quote {
+  font-size: 1rem;
+  font-style: italic;
+  color: #444;
+}
+
+.press-publication {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.press-date {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.press-purchase {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #ffffff;
+  background-color: #0070f3;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #005bb5;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.press-purchase:hover {
+  transform: scale(1.05);
+  background-color: #2e84db;
+}
+
+.press-link {
+  font-size: 0.9rem;
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.press-link:hover {
+  text-decoration: underline;
+}
