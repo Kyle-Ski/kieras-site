@@ -315,23 +315,90 @@
   }
 }
 
-/* Dark mode adjustments */
+/* Dark mode adjustments for press page */
 @media (prefers-color-scheme: dark) {
-  .blog-card, .press-card {
+  /* Outer page container */
+  .press-page {
+    background: rgba(30, 34, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Title colors in dark mode */
+  .press-title {
+    background: linear-gradient(135deg, #ffffff, #00bcd4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Card backgrounds */
+  .press-card {
     background: rgba(40, 44, 52, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
-  .blog-card:hover, .press-card:hover {
+  .press-card:hover {
     background: rgba(45, 49, 57, 0.95);
     border: 1px solid rgba(0, 188, 212, 0.3);
   }
   
+  /* Text colors */
+  .press-item-title {
+    color: #ffffff;
+  }
+  
+  .press-summary {
+    color: #b0b6c3;
+    background: rgba(0, 188, 212, 0.08);
+  }
+  
+  .press-quotes h3 {
+    color: #ffffff;
+  }
+  
+  .press-quote {
+    color: #d1d5db;
+  }
+  
+  .press-quote-item {
+    background: rgba(0, 188, 212, 0.05);
+  }
+  
+  .press-quote-item:hover {
+    background: rgba(0, 188, 212, 0.1);
+  }
+  
+  .press-publication {
+    color: #00bcd4;
+  }
+  
+  .press-date {
+    color: #8a9199;
+  }
+  
+  .press-link {
+    color: #22d3ee;
+  }
+  
+  .press-link:hover {
+    color: #00bcd4;
+  }
+  
   /* On mobile, simpler dark cards */
   @media (max-width: 768px) {
-    .blog-card, .press-card {
+    .press-page {
+      background: transparent;
+    }
+    
+    .press-card {
       background: rgba(35, 39, 47, 0.95);
       border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .press-summary {
+      background: rgba(0, 188, 212, 0.05);
+      border-left: 2px solid #00bcd4;
+      padding: 1rem;
     }
   }
 }

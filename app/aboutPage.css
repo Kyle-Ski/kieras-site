@@ -266,3 +266,76 @@
     font-size: 1.3rem;
   }
 }
+
+/* Dark mode adjustments for about page */
+@media (prefers-color-scheme: dark) {
+  /* Outer page container */
+  .about-page {
+    background: rgba(40, 44, 52, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Title colors in dark mode */
+  .about-title {
+    background: linear-gradient(135deg, #ffffff, #00bcd4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Body text colors */
+  .about-body {
+    color: #b0b6c3;
+  }
+  
+  .about-body p:first-child {
+    color: #e2e8f0;
+  }
+  
+  /* Connect section */
+  .about-connect {
+    background: rgba(0, 188, 212, 0.08);
+    border: 1px solid rgba(0, 188, 212, 0.2);
+  }
+  
+  #follow-me-about {
+    color: #00bcd4;
+  }
+  
+  /* Enhanced Social Links for dark mode */
+  .about-socials {
+    color: #e2e8f0;
+  }
+  
+  .about-socials a {
+    color: #e2e8f0;
+    background: rgba(40, 44, 52, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .about-socials a:hover {
+    color: #00bcd4;
+    background: rgba(0, 188, 212, 0.15);
+    border: 1px solid rgba(0, 188, 212, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 188, 212, 0.4);
+  }
+  
+  .about-social-text {
+    color: inherit;
+  }
+  
+  /* On mobile, simpler dark styling */
+  @media (max-width: 768px) {
+    
+    .about-connect {
+      background: rgba(0, 188, 212, 0.05);
+      border: 1px solid rgba(0, 188, 212, 0.2);
+    }
+    
+    .about-socials a {
+      background: rgba(35, 39, 47, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  }
+}
