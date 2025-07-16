@@ -2,9 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cal Sans font from public folder */
+@font-face {
+  font-family: 'Cal Sans';
+  src: url('/Cal_Sans,Fira_Sans/Cal_Sans/CalSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafbfc;
+  --foreground: #2c3e50;
+  --background-secondary: #f8f9fa;
+  --accent-primary: #00bcd4;
+  --accent-secondary: #e8f5e8;
+  --text-light: #6c757d;
+  --border-light: #e9ecef;
+  --shadow: 0 4px 20px rgba(0, 188, 212, 0.08);
   
   /* Font variables */
   --font-irish-grover: 'Irish Grover', cursive;
@@ -12,12 +27,16 @@
   --font-alice: 'Alice', 'Geist Sans', serif;
 }
 
-/* Apply Alice as the base font */
+/* Apply Alice as the base font with improved background */
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: linear-gradient(135deg, var(--background) 0%, var(--background-secondary) 100%);
+  background-attachment: fixed; /* Prevents tiling on scroll */
+  background-repeat: no-repeat;
+  background-size: 100% 100%; /* Ensures it covers full page */
   font-family: var(--font-alice);
-  line-height: 1.6;
+  line-height: 1.7;
+  min-height: 100vh;
 }
 
 /* Font utility classes */
@@ -28,7 +47,8 @@ body {
 
 .font-header {
   font-family: var(--font-cal-sans);
-  font-weight: 600;
+  font-weight: 400;
+  color: var(--foreground);
 }
 
 .font-body {
@@ -39,7 +59,20 @@ body {
 /* Apply header font to all heading elements */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cal-sans);
-  font-weight: 600;
+  font-weight: 400;
+  color: var(--foreground);
+  margin-bottom: 0.8rem;
+}
+
+/* Enhanced page containers */
+.page-container {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  margin: 2rem auto;
+  padding: 3rem;
+  max-width: 1200px;
 }
 
 /* Flex container to arrange images side by side by default */
@@ -50,10 +83,12 @@ h1, h2, h3, h4, h5, h6 {
   flex-wrap: nowrap;
   overflow: hidden;
   height: 80vh;
-  /* Updated to cover 80% of the viewport height */
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  margin: 2rem 0;
 }
 
-/* Each image block styling */
+/* Each image block styling - enhanced */
 .hover-expandable-item {
   flex: 1;
   background-size: cover;
@@ -64,42 +99,52 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: flex 0.3s ease, transform 0.3s ease;
+  transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s ease;
   height: 100%;
-  /* Ensure the items take the full height of the container */
   overflow: hidden;
 }
 
-/* Hover effect: Expand the hovered item and shrink others */
+/* Enhanced hover effect */
 .hover-expandable-item:hover {
-  flex: 1.5;
-  /* Expand the hovered item */
-  transform: scale(1.01);
-  /* Slight scaling effect */
+  flex: 1.6;
+  transform: scale(1.02);
+  z-index: 2;
 }
 
 .hover-expandable-item:not(:hover) {
-  flex: 1;
-  /* Shrink non-hovered items */
+  flex: 0.8;
+  filter: brightness(0.7);
 }
 
-/* Text overlay for each image */
+/* Enhanced text overlay */
 .hover-expandable-item p {
   position: absolute;
-  bottom: 10%;
+  bottom: 8%;
   left: 50%;
   transform: translateX(-50%);
   color: white;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(44, 62, 80, 0.8));
+  padding: 1rem 1.5rem;
   text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.3rem;
+  font-weight: 400;
   z-index: 1;
-  font-family: var(--font-cal-sans); /* Headers font for book titles */
+  font-family: var(--font-cal-sans);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  max-width: 80%;
+  line-height: 1.3;
 }
 
-/* Clickable links (if needed) */
+.hover-expandable-item:hover p {
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.9), rgba(44, 62, 80, 0.9));
+  transform: translateX(-50%) translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 188, 212, 0.4);
+}
+
+/* Clickable links */
 .hover-expandable-item a {
   position: absolute;
   top: 0;
@@ -114,51 +159,50 @@ h1, h2, h3, h4, h5, h6 {
   .hover-flex-wrapper {
     display: flex;
     flex-direction: column;
-    /* Stack items vertically */
     align-items: stretch;
     height: auto;
-    /* Allow height to adjust based on content */
+    border-radius: 15px;
   }
 
   .hover-expandable-item {
     flex: none;
-    /* Disable flex-grow/shrink behavior */
     width: 100%;
-    /* Make each item span the full width */
     height: 300px;
-    /* Set a fixed height for consistency */
     background-size: cover;
-    /* Ensure images cover their container */
     background-position: center;
     transform: none;
-    /* Disable scaling effect */
     transition: none;
-    /* Remove hover transitions */
+    filter: none;
   }
 
   .hover-expandable-item:hover {
     transform: none;
-    /* Disable hover effects */
+    flex: none;
+    filter: none;
   }
 
   .hover-expandable-item:not(:hover) {
     flex: none;
-    /* Disable shrinking for non-hovered items */
+    filter: none;
   }
 
   .hover-expandable-item p {
     bottom: 10%;
-    /* Keep text near the bottom */
-    font-size: 1rem;
-    /* Slightly smaller font size */
-    padding: 0.4rem 0.8rem;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.2rem;
+    max-width: 85%;
+  }
+
+  .page-container {
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 15px;
   }
 }
 
-/* Add these styles to your globals.css file */
+/* Navigation styling updates */
 .nav-links a.active {
   color: #00bcd4;
-  /* Same as hover color */
   position: relative;
 }
 
@@ -170,22 +214,24 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 2px;
   background-color: #00bcd4;
+  border-radius: 1px;
 }
 
-/* Update the existing nav-links styles for better mobile transition */
 .nav-links {
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 100%;
   right: 0;
-  background: #333;
+  background: rgba(51, 51, 51, 0.95);
+  backdrop-filter: blur(10px);
   padding: 1rem 2rem;
   transform: translateY(-20px) scaleY(0.9);
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: top;
+  border-radius: 0 0 10px 10px;
 }
 
 .nav-links.open {
@@ -197,83 +243,29 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 768px) {
   .nav-links a.active::after {
     bottom: -6px;
-    /* Adjust underline position for desktop */
   }
 
   .nav-links {
     transform: none;
     opacity: 1;
     visibility: visible;
+    background: none;
+    backdrop-filter: none;
   }
 }
 
-/* Add these styles to your globals.css file */
-
-.nav-links a.active {
-  color: #00bcd4;
-  /* Same as hover color */
-  position: relative;
-}
-
-.nav-links a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #00bcd4;
-}
-
-/* Update the existing nav-links styles for better mobile transition */
-.nav-links {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: #333;
-  padding: 1rem 2rem;
-  transform: translateY(-20px) scaleY(0.9);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: top;
-}
-
-.nav-links.open {
-  transform: translateY(0) scaleY(1);
-  opacity: 1;
-  visibility: visible;
-}
-
-@media (min-width: 768px) {
-  .nav-links a.active::after {
-    bottom: -6px;
-    /* Adjust underline position for desktop */
-  }
-
-  .nav-links {
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-/* General NavBar Styling */
+/* Enhanced NavBar */
 .nav-bar {
   position: fixed;
-  /* Ensures the navbar stays at the top */
   top: 0;
   left: 0;
   width: 100%;
   height: 4rem;
-  /* Define navbar height */
-  background-color: #242424;
-  /* Dark background */
+  background: rgba(36, 36, 36, 0.95);
+  backdrop-filter: blur(15px);
   z-index: 1000;
-  /* Ensure it's on top of all content */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 188, 212, 0.3);
 }
 
 .nav-container {
@@ -283,15 +275,20 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
 .logo a {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 400;
   text-decoration: none;
   color: white;
-  font-family: var(--font-irish-grover); /* Apply Irish Grover to logo */
+  font-family: var(--font-irish-grover);
+  transition: color 0.3s ease;
+}
+
+.logo a:hover {
+  color: var(--accent-primary);
 }
 
 .hamburger {
@@ -322,38 +319,17 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Navigation Links */
-.nav-links {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: #333;
-  padding: 1rem 2rem;
-  transform: translateY(-20px);
-  opacity: 0;
-  visibility: hidden;
-  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.nav-links.open {
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
-}
-
 .nav-links a {
   text-decoration: none;
   color: white;
   margin: 0.5rem 0;
-  font-size: 1.2rem;
-  font-family: var(--font-alice); /* Body font for nav links */
+  font-size: 1.1rem;
+  font-family: var(--font-alice);
+  transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: #59d4e5;
-  /* Add a modern hover effect */
+  color: var(--accent-primary);
 }
 
 /* Desktop View */
@@ -374,14 +350,15 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .nav-links a {
-    margin: 0 1rem;
+    margin: 0 1.5rem;
     font-size: 1rem;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #1a1a1a;
     --foreground: #ededed;
+    --background-secondary: #2a2a2a;
   }
 }

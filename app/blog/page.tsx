@@ -56,18 +56,28 @@ export default async function BlogPage() {
               )}
               <div className="blog-content">
                 <h2 className="blog-post-title">{post.title}</h2>
-                {post.author && <p className="blog-author">By {post.author}</p>}
-                <p className="blog-date">
-                  {new Date(post.publishedAt).toLocaleDateString()}
-                </p>
-                {post.categories && (
-                  <p className="blog-categories">
-                    Categories: {post.categories.join(", ")}
+                
+                {/* Meta information group */}
+                <div className="blog-meta">
+                  {post.author && <p className="blog-author">By {post.author}</p>}
+                  <p className="blog-date">
+                    {new Date(post.publishedAt).toLocaleDateString()}
                   </p>
+                </div>
+
+                {/* Categories on their own line */}
+                {post.categories && (
+                  <div className="blog-categories">
+                    <span>Categories: {post.categories.join(", ")}</span>
+                  </div>
                 )}
-                <Link href={`/blog/${post.slug}`} className="blog-read-more">
-                  Read More
-                </Link>
+
+                {/* Button in its own container */}
+                <div className="blog-action">
+                  <Link href={`/blog/${post.slug}`} className="blog-read-more">
+                    Read More
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

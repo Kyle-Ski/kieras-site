@@ -1,124 +1,246 @@
-/* General Styling for the About Page */
+/* Enhanced About Page Styling */
 .about-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 3rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 188, 212, 0.08);
+  position: relative;
 }
 
+.about-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00bcd4, #2c3e50, #00bcd4);
+  border-radius: 20px 20px 0 0;
+}
+
+/* Enhanced Image Container */
 .about-image-container {
   width: 100%;
-  max-width: 500px;
-  margin-bottom: 2rem;
-  border-radius: 10px;
+  max-width: 450px;
+  margin-bottom: 3rem;
+  border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.about-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent, rgba(0, 188, 212, 0.1));
+  z-index: 1;
+  border-radius: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.about-image-container:hover::before {
+  opacity: 0;
 }
 
 .about-image {
   width: 100%;
-  height: 400px;
+  height: 500px;
   object-fit: cover;
   object-position: top center;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease, filter 0.3s ease;
+  border-radius: 20px;
 }
 
 .about-image:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
+  filter: brightness(1.1);
 }
 
+/* Enhanced Content Area */
+.about-content {
+  text-align: center;
+  max-width: 800px;
+}
+
+.about-title {
+  font-size: 3rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-family: var(--font-cal-sans);
+  background: linear-gradient(135deg, #2c3e50, #00bcd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.about-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #00bcd4, #2c3e50);
+  border-radius: 2px;
+}
+
+.about-body {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #5a6c7d;
+  margin-top: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: var(--font-alice);
+}
+
+.about-body p {
+  font-family: var(--font-alice);
+  margin-bottom: 1.5rem;
+  padding: 1rem 0;
+}
+
+.about-body p:first-child {
+  font-size: 1.35rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+/* Enhanced Connect Section */
+.about-connect {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: rgba(0, 188, 212, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 188, 212, 0.1);
+}
+
+#follow-me-about {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #00bcd4;
+  margin-top: 0;
+  font-family: var(--font-cal-sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Enhanced Social Links */
 .about-socials {
   display: flex;
-  color: black;
+  color: #2c3e50;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  font-size: 1.5rem;
+  gap: 3rem;
+  font-size: 1.8rem;
+  margin-top: 1.5rem;
 }
 
 .about-socials a {
-  color: black;
+  color: #2c3e50;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  font-family: var(--font-alice); /* Body font */
+  font-family: var(--font-alice);
+  padding: 1rem;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-socials a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 188, 212, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.about-socials a:hover::before {
+  left: 100%;
 }
 
 .about-socials a:hover {
   color: #00bcd4;
-}
-
-#follow-me-about {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #00bcd4;
-  margin-top: 1rem;
-  font-family: var(--font-cal-sans); /* Header font */
-  font-weight: 600;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 188, 212, 0.3);
+  background: rgba(0, 188, 212, 0.1);
 }
 
 .about-social-text {
-  color: black;
-  font-size: 1rem;
-  font-weight: 300;
-  font-family: var(--font-alice); /* Body font */
-}
-
-.about-social-text:hover {
-  color: #00bcd4;
+  color: inherit;
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-family: var(--font-alice);
+  transition: color 0.3s ease;
 }
 
 .about-social-with-text {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
-.about-content {
-  text-align: center;
-}
-
-.about-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #333;
-  font-family: var(--font-cal-sans); /* Header font */
-}
-
-.about-body {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #555;
-  margin-top: 1rem;
-  max-width: 800px;
-  margin: 0 auto;
-  font-family: var(--font-alice); /* Body font */
-}
-
-.about-body p {
-  font-family: var(--font-alice); /* Body font for all paragraphs */
-  margin-bottom: 1rem;
-}
-
-/* Mobile Responsive Adjustments */
+/* Enhanced Mobile Responsive */
 @media (max-width: 768px) {
+  .about-page {
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 15px;
+  }
+
   .about-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .about-body {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .about-image-container {
     max-width: 100%;
+    margin-bottom: 2rem;
   }
 
   .about-image {
-    height: 450px;
+    height: 400px;
+  }
+
+  .about-socials {
+    flex-direction: column;
+    gap: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .about-connect {
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  #follow-me-about {
+    font-size: 1.3rem;
   }
 }
 
@@ -129,6 +251,18 @@
   }
 
   .about-page {
-    padding: 1rem;
+    padding: 1.5rem;
+  }
+
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-body {
+    font-size: 1rem;
+  }
+
+  .about-socials {
+    font-size: 1.3rem;
   }
 }
