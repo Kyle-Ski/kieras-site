@@ -27,7 +27,7 @@
 
 /* Enhanced Image Container */
 .about-image-container {
-  width: 100%;
+  width: 65%;
   max-width: 450px;
   margin-bottom: 3rem;
   border-radius: 20px;
@@ -55,7 +55,7 @@
 
 .about-image {
   width: 100%;
-  height: 500px;
+  height: 400px;
   object-fit: cover;
   object-position: top center;
   transition: transform 0.4s ease, filter 0.3s ease;
@@ -220,12 +220,12 @@
   }
 
   .about-image-container {
-    max-width: 100%;
+    max-width: 70% !important;
     margin-bottom: 2rem;
   }
 
   .about-image {
-    height: 400px;
+    height: 30vh;
   }
 
   .about-socials {
@@ -247,7 +247,7 @@
 /* Small Mobile Adjustments */
 @media (max-width: 480px) {
   .about-image {
-    height: 350px;
+    height: 30vh;
   }
 
   .about-page {
