@@ -65,14 +65,12 @@ export default async function BlogPage() {
                   </p>
                 </div>
 
-                {/* Categories on their own line */}
                 {post.categories && (
                   <div className="blog-categories">
                     <span>Categories: {post.categories.join(", ")}</span>
                   </div>
                 )}
 
-                {/* Button in its own container */}
                 <div className="blog-action">
                   <Link href={`/blog/${post.slug}`} className="blog-read-more">
                     Read More

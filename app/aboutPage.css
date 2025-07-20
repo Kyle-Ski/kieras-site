@@ -1,4 +1,3 @@
-/* Enhanced About Page Styling */
 .about-page {
   display: flex;
   flex-direction: column;
@@ -25,7 +24,6 @@
   border-radius: 20px 20px 0 0;
 }
 
-/* Enhanced Image Container */
 .about-image-container {
   width: 65%;
   max-width: 450px;
@@ -67,7 +65,6 @@
   filter: brightness(1.1);
 }
 
-/* Enhanced Content Area */
 .about-content {
   text-align: center;
   max-width: 800px;
@@ -121,7 +118,6 @@
   font-weight: 500;
 }
 
-/* Enhanced Connect Section */
 .about-connect {
   margin-top: 3rem;
   padding: 2rem;
@@ -141,7 +137,6 @@
   letter-spacing: 1px;
 }
 
-/* Enhanced Social Links */
 .about-socials {
   display: flex;
   color: #2c3e50;
@@ -203,7 +198,6 @@
   gap: 0.8rem;
 }
 
-/* Enhanced Mobile Responsive */
 @media (max-width: 768px) {
   .about-page {
     padding: 2rem;
@@ -244,7 +238,6 @@
   }
 }
 
-/* Small Mobile Adjustments */
 @media (max-width: 480px) {
   .about-image {
     height: 30vh;
@@ -267,7 +260,6 @@
   }
 }
 
-/* Dark mode adjustments for about page */
 @media (prefers-color-scheme: dark) {
   /* Outer page container */
   .about-page {
@@ -302,7 +294,6 @@
     color: #00bcd4;
   }
   
-  /* Enhanced Social Links for dark mode */
   .about-socials {
     color: #e2e8f0;
   }

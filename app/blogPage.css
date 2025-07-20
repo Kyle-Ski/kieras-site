@@ -1,4 +1,3 @@
-/* Blog Page Styling */
 .blog-page {
     padding: 2rem;
     max-width: 1200px;
@@ -11,7 +10,6 @@
     margin-bottom: 3rem;
 }
 
-/* Enhanced Blog Title */
 .blog-title {
     text-align: center;
     font-size: 3.5rem;
@@ -39,7 +37,6 @@
     border-radius: 2px;
 }
 
-/* Enhanced Subtitle */
 .blog-subtitle {
     text-align: center;
     font-size: 1.3rem;
@@ -49,7 +46,6 @@
     font-style: italic;
 }
 
-/* Enhanced Grid Layout */
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -57,7 +53,6 @@
     margin-top: 2rem;
 }
 
-/* Enhanced Blog Cards - Subtle hover */
 .blog-card {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
@@ -80,7 +75,6 @@
     transition: height 0.3s ease;
 }
 
-/* Subtle hover - just enhance shadow and border */
 .blog-card:hover {
     box-shadow: 0 12px 48px rgba(0, 188, 212, 0.15);
     border: 1px solid rgba(0, 188, 212, 0.2);
@@ -90,7 +84,6 @@
     height: 6px;
 }
 
-/* Image zoom on hover instead of whole card */
 .blog-image {
     width: 100%;
     height: 220px;
@@ -102,14 +95,12 @@
     transform: scale(1.05);
 }
 
-/* Enhanced Content Area */
 .blog-content {
     padding: 2rem;
     text-align: left;
     position: relative;
 }
 
-/* Make the title slightly more prominent on hover */
 .blog-post-title {
     font-size: 1.6rem;
     margin-bottom: 1rem;
@@ -124,7 +115,6 @@
     color: #00bcd4;
 }
 
-/* Meta information group */
 .blog-meta {
     margin-bottom: 1rem;
 }
@@ -144,7 +134,6 @@
     font-family: var(--font-alice);
 }
 
-/* Categories styling */
 .blog-categories {
     font-size: 0.9rem;
     color: #00bcd4;
@@ -158,13 +147,11 @@
     text-align: left;
 }
 
-/* Button container */
 .blog-action {
     margin-top: 1.5rem;
     text-align: center;
 }
 
-/* Enhanced Read More Button */
 .blog-read-more {
     display: inline-block;
     font-size: 1rem;
@@ -193,13 +180,11 @@
     transition: left 0.5s ease;
 }
 
-/* When card is hovered, make button more prominent */
 .blog-card:hover .blog-read-more {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 188, 212, 0.4);
 }
 
-/* Button's own hover effect */
 .blog-read-more:hover {
     background: linear-gradient(135deg, #00acc1, #00838f);
     transform: translateY(-4px) !important;
@@ -210,7 +195,6 @@
     left: 100%;
 }
 
-/* Enhanced Responsive Design */
 @media (max-width: 768px) {
     .blog-page {
         padding: 1rem;
@@ -232,7 +216,6 @@
 
     .blog-grid {
         gap: 1.5rem;
-        /* grid-template-columns: 1fr; */
     }
 
     .blog-card {
@@ -279,16 +262,15 @@
     }
 }
 
-/* Dark mode adjustments for blog page */
 @media (prefers-color-scheme: dark) {
 
-    /* Outer page container */
+
     .blog-page {
         background: rgba(30, 34, 42, 0.9);
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Title and subtitle colors in dark mode */
+
     .blog-title {
         background: linear-gradient(135deg, #ffffff, #00bcd4);
         -webkit-background-clip: text;
@@ -300,7 +282,7 @@
         color: #b0b6c3;
     }
 
-    /* Card backgrounds */
+
     .blog-card {
         background: rgba(40, 44, 52, 0.9);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -311,7 +293,7 @@
         border: 1px solid rgba(0, 188, 212, 0.3);
     }
 
-    /* Text colors */
+
     .blog-post-title {
         color: #b7bfca !important;
     }
@@ -333,7 +315,7 @@
         background: rgba(0, 188, 212, 0.15);
     }
 
-    /* On mobile, simpler dark cards */
+
     @media (max-width: 768px) {
         .blog-page {
             background: transparent;
