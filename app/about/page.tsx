@@ -38,7 +38,7 @@ export default async function AboutPage() {
       )}
       <div className="about-content">
         <h1 className="about-title">{aboutContent.title}</h1>
-        <div className="about-body">
+        <div className="about-body text-[#2c3e50] dark:text-[#e2e8f0]">
           <PortableText value={aboutContent.body} />
 
         </div>
