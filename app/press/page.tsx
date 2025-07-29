@@ -20,7 +20,7 @@ interface PressItem {
 
 async function fetchPressItems(): Promise<PressItem[]> {
   try {
-    const query = `*[_type == "press"] | order(quotes[0].date desc) {
+    const query = `*[_type == "press"] | order(quotes[0].date asc) {
         title,
         summary,
         "imageUrl": image.asset->url,
