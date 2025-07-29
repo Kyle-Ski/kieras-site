@@ -75,7 +75,7 @@
   font-weight: 400;
   margin-bottom: 2rem;
   color: #2c3e50;
-  font-family: var(--font-cal-sans);
+  font-family: var(--font-irish-grover);
   background: linear-gradient(135deg, #2c3e50, #00bcd4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -131,7 +131,7 @@
   margin-bottom: 1.5rem;
   color: #00bcd4;
   margin-top: 0;
-  font-family: var(--font-cal-sans);
+  font-family: var(--font-irish-grover);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1px;

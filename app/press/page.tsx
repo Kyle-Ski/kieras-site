@@ -70,7 +70,7 @@ export default async function PressPage() {
                 <p className="press-summary">{item.summary}</p>
 
                 <div className="press-quotes">
-                  <h3>Quotes</h3>
+                  <h3>Reviews</h3>
                   <ul>
                     {item.quotes && item.quotes.map((quote, quoteIndex) => (
                       <li key={quoteIndex} className="press-quote-item">
