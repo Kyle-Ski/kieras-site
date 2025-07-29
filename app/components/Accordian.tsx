@@ -44,7 +44,7 @@ export default function ImageAccordion() {
         className="hover-expandable-item"
         style={{ backgroundImage: `url(${item.imageUrl})` }}
       >
-        <p className="font-header" dangerouslySetInnerHTML={{ __html: item.title }} />
+        <p className="font-header block sm:hidden" dangerouslySetInnerHTML={{ __html: item.title }} />
         {item.link && (
           <a
             href={item.link}
