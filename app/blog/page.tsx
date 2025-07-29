@@ -40,7 +40,7 @@ export default async function BlogPage() {
   return (
     <>
       <section className="blog-page">
-        <h1 className="blog-title">Blog</h1>
+        <h1 className="blog-title">Micro-Blog</h1>
         <p className="blog-subtitle">Latest musings and updates</p>
         <div className="blog-grid">
           {blogPosts.map((post, index) => (
