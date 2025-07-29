@@ -98,7 +98,7 @@
 .about-body {
   font-size: 1.25rem;
   line-height: 1.8;
-  color: #5a6c7d;
+  color: #e2e8f0;
   margin-top: 2rem;
   max-width: 700px;
   margin-left: auto;
@@ -112,9 +112,9 @@
   padding: 1rem 0;
 }
 
-.about-body p:first-child {
+.about-body {
   font-size: 1.35rem;
-  color: #2c3e50;
+  color: #e2e8f0;
   font-weight: 500;
 }
 
@@ -277,7 +277,7 @@
   
   /* Body text colors */
   .about-body {
-    color: #b0b6c3;
+    color: #e2e8f0;
   }
   
   .about-body p:first-child {
