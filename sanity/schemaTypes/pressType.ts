@@ -6,6 +6,12 @@ export const pressType = defineType({
   type: 'document',
   fields: [
     {
+      name: 'press-order',
+      type: 'number',
+      description: 'The order we would like the press items to be in, 1 start -> 10 last.',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'title',
       title: 'Book Title',
       type: 'string',
