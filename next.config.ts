@@ -1,8 +1,16 @@
 import type { NextConfig } from "next";
 
+const hostNames = ['cdn.sanity.io', 'images.gr-assets.com']
+
 const nextConfig: NextConfig = {
   images: {
-    domains: ['cdn.sanity.io', 'images.gr-assets.com']
+    remotePatterns: hostNames.map((hostname) => ({
+      protocol: 'https',
+      hostname,
+    })),
+  },
+  experimental: {
+    optimizeCss: true
   }
 };
 
