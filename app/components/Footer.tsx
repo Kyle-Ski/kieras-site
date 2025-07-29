@@ -19,7 +19,7 @@ export default function Footer() {
               <Link href="/press" className="font-body">Press</Link>
             </li>
             <li>
-              <Link href="/blog" className="font-body">Blog</Link>
+              <Link href="/blog" className="font-body">Micro-Blog</Link>
             </li>
           </ul>
         </div>
