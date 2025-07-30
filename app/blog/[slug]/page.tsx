@@ -112,7 +112,7 @@ export default async function BlogPostPage(
           <p className="blog-author">By {author || "Unknown Author"}</p>
           <p className="blog-date">{new Date(publishedAt).toLocaleDateString()}</p>
           {categories && (
-            <p className="blog-categories">Categories: {categories.join(", ")}</p>
+            <p className="blog-categories">{categories.join(", ")}</p>
           )}
         </div>
       </header>
