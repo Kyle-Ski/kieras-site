@@ -67,7 +67,7 @@ export default async function BlogPage() {
 
                 {post.categories && (
                   <div className="blog-categories">
-                    <span>Categories: {post.categories.join(", ")}</span>
+                    <span>{post.categories.join(", ")}</span>
                   </div>
                 )}
 
