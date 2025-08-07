@@ -111,9 +111,9 @@ export default async function BlogPostPage(
         <div className="blog-post-meta">
           <p className="blog-author">By {author || "Unknown Author"}</p>
           <p className="blog-date">{new Date(publishedAt).toLocaleDateString()}</p>
-          {categories && (
+          {/* {categories && (
             <p className="blog-categories">{categories.join(", ")}</p>
-          )}
+          )} */}
         </div>
       </header>
 
