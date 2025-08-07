@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
 import "../blogPage.css";
+import { PortableText } from "next-sanity";
 
 interface BlogPost {
   title: string;
@@ -43,42 +44,57 @@ export default async function BlogPage() {
         <h1 className="blog-title">Micro-Blog</h1>
         <p className="blog-subtitle">Latest musings and updates</p>
         <div className="blog-grid">
-          {blogPosts.map((post, index) => (
-            <div key={index} className="blog-card">
-              {post.mainImage?.url && (
-                <Image
-                  src={post.mainImage.url}
-                  alt={post.mainImage.alt || "Blog Image"}
-                  width={400}
-                  height={300}
-                  className="blog-image"
-                />
-              )}
-              <div className="blog-content">
-                <h2 className="blog-post-title">{post.title}</h2>
-                
-                {/* Meta information group */}
-                <div className="blog-meta">
-                  {post.author && <p className="blog-author">By {post.author}</p>}
-                  <p className="blog-date">
-                    {new Date(post.publishedAt).toLocaleDateString()}
-                  </p>
-                </div>
+          {blogPosts.map((post, index) => {
+            return (
 
-                {post.categories && (
+              <div key={index} className="blog-card">
+                {post.mainImage?.url && (
+                  <Image
+                    src={post.mainImage.url}
+                    alt={post.mainImage.alt || "Blog Image"}
+                    width={400}
+                    height={300}
+                    className="blog-image"
+                  />
+                )}
+                <div className="blog-content">
+                  <h2 className="blog-post-title">{post.title}</h2>
+
+                  {/* Meta information group */}
+                  <div className="blog-meta">
+                    {post.author && <p className="blog-author">By {post.author}</p>}
+                    <p className="blog-date">
+                      {new Date(post.publishedAt).toLocaleDateString()}
+                    </p>
+                    <div className="blog-excerpt">
+                    {post.body && (
+                      <PortableText
+                        value={post.body.slice(0, 1)} // Limit to the first block of text
+                        components={{
+                          block: ({ children }) => (
+                            <p className="line-clamp-2">{children}</p> // Clamp to 2 lines
+                          ),
+                        }}
+                      />
+                    )}
+                    </div>
+                  </div>
+
+                  {/* {post.categories && (
                   <div className="blog-categories">
                     <span>{post.categories.join(", ")}</span>
                   </div>
-                )}
+                )} */}
 
-                <div className="blog-action">
-                  <Link href={`/blog/${post.slug}`} className="blog-read-more">
-                    Read More
-                  </Link>
+                  <div className="blog-action">
+                    <Link href={`/blog/${post.slug}`} className="blog-read-more">
+                      Read More
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </section>
     </>

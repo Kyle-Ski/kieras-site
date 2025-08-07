@@ -46,6 +46,11 @@
     font-style: italic;
 }
 
+.blog-grid>.blog-card:only-child {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -218,6 +223,11 @@
         gap: 1.5rem;
     }
 
+    .blog-grid>.blog-card:only-child {
+        max-width: 100%;
+        margin: 0 1rem;
+    }
+
     .blog-card {
         background: white;
         border-radius: 8px;
@@ -282,6 +292,9 @@
         color: #b0b6c3;
     }
 
+    .blog-excerpt {
+        color: #c6ccd4;
+    }
 
     .blog-card {
         background: rgba(40, 44, 52, 0.9);
@@ -299,7 +312,8 @@
     }
 
     .blog-card:hover .blog-post-title {
-        color: #00bcd4 !important;;
+        color: #00bcd4 !important;
+        ;
     }
 
     .blog-author {
